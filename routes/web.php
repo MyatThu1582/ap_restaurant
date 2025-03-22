@@ -3,10 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DishesController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/order', [OrderController::class, 'index']);
+Route::resource('dish', DishesController::class)->middleware('auth');
 
 Auth::routes([
     'register' => false, // Registration Routes...
@@ -15,5 +19,3 @@ Auth::routes([
     'confirm' => false,  // Password Confirmation Routes...
   ]);
 
-Route::get('/home', [App\Http\Controllers\OrderController::class, 'index'])->name('home');
-Route::resource('dish', DishesController::class);
