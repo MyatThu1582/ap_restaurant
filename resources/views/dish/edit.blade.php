@@ -17,7 +17,7 @@
         </div>
         <div class="row mt-5">
             <div class="card col-8 p-3" style="margin: 0px auto !important;">
-                <form action="/dish/{{  $dish->id }}" method="post" enctype="multipart/form-data">
+                <form action="/dish/{{ $dish->id }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">

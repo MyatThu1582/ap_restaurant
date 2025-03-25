@@ -16,8 +16,49 @@
                 </ol>
               </div>
             </div>
+            @if (session('message'))
+            <div class="alert alert-info alert-dismissible fade show">
+                {{ session('message') }}
+                <button type="button" class="close btn btn-default float-end ms-5" data-bs-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>              
+            @endif
             <div class="row">
-                
+              <table id="example" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 20px;">ID</th>
+                        <th>Order No</th>
+                        <th>Dish Name</th>
+                        <th>Table No</th>
+                        <th>Status</th>
+                        <th style="width: 200px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $id = 1;
+                  ?>
+                    @foreach($orders as $order)
+                    <tr>
+                        <td>{{ $id }}</td>
+                        <td>{{ $order->order_id }}</td>
+                        <td>{{ $order->dish_id }}</td>
+                        <td>{{ $order->table_id }}</td>
+                        <td>{{ $status[$order->status] }}</td>
+                        <td>
+                          <a href="/order/{{ $order->id }}/approve" class="btn btn-sm btn-primary">Approve</a>
+                          <a href="/order/{{ $order->id }}/cancel" class="btn btn-sm btn-danger">Cancel</a>
+                          <a href="/order/{{ $order->id }}/ready" class="btn btn-sm btn-success">Ready</a>
+                        </td>
+                    </tr>
+                    <?php
+                    $id++;
+                    ?>
+                    @endforeach
+                </tbody>
+            </table>     
             </div>
             <!--end::Row-->
           </div>
