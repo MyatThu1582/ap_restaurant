@@ -58,7 +58,22 @@
                              role="tab" aria-controls="custom-tabs-four-profile" 
                              aria-selected="false">Order Lists</button>
                       </li>
-                  </ul>
+                    </ul>
+                    <div class="float-end" style="margin-top: -38px;">
+                      <form action="/" method="post">
+                        @csrf
+                        <div class="input-group mb-3">
+                          <input type="search" class="form-control" name="search" placeholder="Search Dish Name ...">
+                          <div class="input-group-append">
+                            <button class="btn btn-default mt-2">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                  </div>
               </div>
   
               @if (session('message'))
@@ -129,9 +144,12 @@
                                 
                                 @forEach($orders as $order)
                                 <tr>
-                                    <td>{{ $order->dish_id }}</td>
+                                    <td>{{ $order->dish->name }}</td>
                                     <td>{{ $order->table_id }}</td>
-                                    <td>{{ $order->status }}</td>
+                                    <td>{{ $status[$order->status] }}</td>
+                                    <td>
+                                      <a href="/order/{{ $order->id }}/done" class="btn text-light btn-sm btn-info">Serve</a>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </table>

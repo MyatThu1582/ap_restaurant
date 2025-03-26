@@ -44,7 +44,7 @@
                     <tr>
                         <td>{{ $id }}</td>
                         <td>{{ $order->order_id }}</td>
-                        <td>{{ $order->dish_id }}</td>
+                        <td>{{ $order->dish->name }}</td>
                         <td>{{ $order->table_id }}</td>
                         <td>{{ $status[$order->status] }}</td>
                         <td>

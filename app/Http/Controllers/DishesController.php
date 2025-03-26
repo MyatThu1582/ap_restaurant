@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Dish;
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\Table;
 use App\Http\Requests\StoreDishRequest;
 
 class DishesController extends Controller
@@ -116,4 +117,24 @@ class DishesController extends Controller
         $order->save();
         return redirect('order')->with('message', 'Order is ready to serve');
     }
+
+    public function done(Order $order){
+        $order->status = config('res.order_status.done');
+        $order->save();
+        return redirect('/')->with('message', 'Order served Successfully');
+    }
+
+    public function search(Request $request){ 
+    
+        $validated = $request->validate([
+            'search' => 'required|string|max:255'
+        ]);
+        $searchTerm = $validated['search']; // Extract validated input
+        $tables = Table::all();
+        $orders = Order::where('status', 4)->get();
+        
+        $dishes = Dish::where('name', 'like', '%' . $searchTerm . '%')->get(); // Use get() instead of all()
+        return view('order_form', compact('dishes', 'tables', 'orders'));
+    }
+    
 }

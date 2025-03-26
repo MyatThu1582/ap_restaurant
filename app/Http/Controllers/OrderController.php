@@ -17,7 +17,10 @@ class OrderController extends Controller
         $dishes = Dish::orderBy('id', 'Desc')->get();
         $tables = Table::all();
         $orders = Order::where('status', 4)->get();
-        return view('order_form', compact('dishes', 'tables','orders'));
+        $res_status = config('res.order_status');
+        $status = array_flip($res_status);
+
+        return view('order_form', compact('dishes', 'tables','orders','status'));
     }
 
     public function submit(Request $request){

@@ -19,6 +19,8 @@ Route::get('order/{order}/cancel', [DishesController::class, 'cancel']);
 Route::get('order/{order}/ready', [DishesController::class, 'ready']);
 Route::get('order/{order}/done', [DishesController::class, 'done']);
 
+Route::post('/', [DishesController::class,'search']);
+
 
 Auth::routes([
     'register' => false, // Registration Routes...
